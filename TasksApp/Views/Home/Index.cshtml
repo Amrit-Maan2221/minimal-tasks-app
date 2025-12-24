@@ -1,0 +1,29 @@
+﻿@model List<TasksApp.Models.TaskItem>
+
+<h2>📝 Daily Task Tracker</h2>
+
+<form asp-action="Add" method="post">
+    <input type="text" name="title" placeholder="Enter task..." required />
+    <button type="submit">Add</button>
+</form>
+
+<hr />
+
+<ul>
+    @foreach (var task in Model)
+    {
+        <li>
+            @if (task.IsCompleted)
+            {
+                <strike>@task.Title</strike>
+            }
+            else
+            {
+                @task.Title
+                <a asp-action="Complete" asp-route-id="@task.Id">✅ Complete</a>
+            }
+
+            <a asp-action="Delete" asp-route-id="@task.Id">❌ Delete</a>
+        </li>
+    }
+</ul>

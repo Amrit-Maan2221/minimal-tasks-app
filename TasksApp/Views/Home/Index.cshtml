@@ -2,17 +2,17 @@
 
 <h2>📝 Daily Task Tracker</h2>
 
-<form asp-action="Add" method="post">
-    <input type="text" name="title" placeholder="Enter task..." required />
-    <button type="submit">Add</button>
+<form asp-action="Add" method="post" class="mb-3 d-flex">
+    <input type="text" name="title" placeholder="Enter task..." required class="form-control me-2" />
+    <button type="submit" class="btn btn-primary">Add</button>
 </form>
 
 <hr />
 
-<ul>
+<ul class="list-unstyled">
     @foreach (var task in Model)
     {
-        <li>
+        <li class="mb-2">
             @if (task.IsCompleted)
             {
                 <strike>@task.Title</strike>
@@ -20,10 +20,14 @@
             else
             {
                 @task.Title
-                <a asp-action="Complete" asp-route-id="@task.Id">✅ Complete</a>
+                <a asp-action="Complete" asp-route-id="@task.Id" class="btn btn-success btn-sm ms-2">✅ Complete</a>
             }
 
-            <a asp-action="Delete" asp-route-id="@task.Id">❌ Delete</a>
+            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger btn-sm ms-2">❌ Delete</a>
         </li>
     }
 </ul>
+@if (!Model.Any())
+{
+    <p class="text-muted">No tasks for today! 🎉</p>
+}
